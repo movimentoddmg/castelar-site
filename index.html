@@ -95,18 +95,15 @@
   </aside>
 
   <script>
-    // Eventos distintos por botão: aparecem separadamente na lista de eventos do GA4.
+    // Use o evento app_click esperado pela exploração e envie app_name como parâmetro.
     document.querySelectorAll('a[data-app-name]').forEach(function (link) {
       link.addEventListener('click', function () {
-        var appName = link.dataset.appName;
-        var eventName = 'app_download_click_' + appName.toLowerCase().replace(/[^a-z0-9]+/g, '_');
-        if (typeof window.gtag === 'function') {
-          window.gtag('event', eventName, {
-            app_name: appName,
-            link_url: link.href,
-            transport_type: 'beacon'
-          });
-        }
+        if (typeof window.gtag !== 'function') return;
+        window.gtag('event', 'app_click', {
+          app_name: link.dataset.appName,
+          link_url: link.href,
+          transport_type: 'beacon'
+        });
       });
     });
 
