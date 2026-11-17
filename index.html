@@ -1,340 +1,132 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Castelarpp</title>
-    <meta name="description" content="Castelarpp - soluções digitais para finanças, compras, cinema e pets." />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Castelarpp</title>
+  <meta name="description" content="Castelarpp - soluções digitais para finanças, compras, cinema e pets.">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KQDV8J3VSH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ window.dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-KQDV8J3VSH');
+  </script>
+  <style>
+    :root { --bg:#f4f3f1; --text:#1f2d3a; --muted:#5e6f82; --navy:#1f3a5b; --gold:#b79c77; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:Arial,Helvetica,sans-serif; background:var(--bg); color:var(--text); line-height:1.5; }
+    a { color:inherit; text-decoration:none; }
+    .container { width:min(1180px,calc(100% - 48px)); margin:0 auto; }
+    .brand-section { padding:38px 0 30px; }
+    .brand-wrap { display:flex; justify-content:center; }
+    .brand { color:var(--gold); font-size:clamp(2.1rem,1.8vw + 1.2rem,4rem); font-weight:700; letter-spacing:-.04em; padding:0 8px 10px; border-bottom:3px solid rgba(26,40,52,.7); line-height:1.1; }
+    .apps-grid { padding:12px 0 48px; }
+    .apps-grid-inner { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:22px; }
+    .app-card { min-width:0; display:grid; grid-template-rows:164px 300px 82px; overflow:hidden; background:#fff; border:1px solid rgba(31,58,91,.1); border-radius:16px; box-shadow:0 5px 18px rgba(31,45,58,.08); transition:transform 180ms ease,box-shadow 180ms ease; }
+    .app-card:hover { transform:translateY(-4px); box-shadow:0 10px 24px rgba(31,45,58,.13); }
+    .app-meta { padding:20px 18px 14px; }
+    .app-meta h2 { margin:0 0 9px; color:var(--navy); font-size:clamp(1.05rem,.8vw + .8rem,1.4rem); line-height:1.25; letter-spacing:-.03em; }
+    .app-meta p { display:-webkit-box; margin:0; overflow:hidden; color:var(--muted); font-size:.92rem; line-height:1.5; -webkit-box-orient:vertical; -webkit-line-clamp:4; }
+    .artboard { position:relative; min-height:0; overflow:hidden; }
+    .blue { background:linear-gradient(160deg,#178ee0,#0c65b8); }
+    .red { background:linear-gradient(160deg,#e44740,#ad1d28); }
+    .gold { background:linear-gradient(160deg,#d6bd73,#a8790b); }
+    .green { background:linear-gradient(160deg,#70b47b,#347e58); }
+    .phone { position:absolute; left:50%; top:50%; width:150px; height:220px; transform:translate(-50%,-46%) rotate(4deg); border:8px solid #11151a; border-radius:24px; background:linear-gradient(#fff,#e6ebef); box-shadow:0 12px 24px #0003; }
+    .phone:before { content:""; position:absolute; top:8px; left:50%; width:48px; height:7px; transform:translateX(-50%); border-radius:9px; background:#aeb8c1; }
+    .screen { position:absolute; inset:30px 12px 12px; overflow:hidden; border-radius:10px; background:#f3d8e4; }
+    .screen i { display:block; height:13px; margin:17px 12px; border-radius:9px; background:#ecb5d2; }
+    .screen i:nth-child(2) { width:70%; }
+    .screen i:nth-child(3) { width:54%; }
+    .screen b { position:absolute; bottom:14px; left:15px; width:12px; height:35px; background:#58c55d; box-shadow:18px -12px #58c55d,36px -23px #58c55d,54px -35px #58c55d; }
+    .phone.red .screen { background:#fef0f5; }
+    .phone.red .screen i { background:#de5a5a; }
+    .phone.gold .screen { background:#f7f2d6; }
+    .phone.gold .screen i { background:#d8ba5d; }
+    .phone.green .screen { background:#e4f5dc; }
+    .phone.green .screen i { background:#74a65e; }
+    .app-cta { height:52px; display:flex; align-items:center; justify-content:center; margin:14px 16px 16px; padding:8px 10px; border-radius:9px; background:#123a6b; color:#fff; text-align:center; font-weight:700; font-size:.86rem; }
+    a.app-cta:hover { background:#1f4e82; }
+    a.app-cta:focus-visible,.admin-trigger:focus-visible { outline:3px solid #d6bd73; outline-offset:3px; }
+    .app-cta.development { background:#697586; }
+    .admin-trigger { position:fixed; right:18px; bottom:18px; width:28px; height:28px; display:grid; place-items:center; border:0; border-radius:50%; background:rgba(17,25,33,.12); color:#263342; font-size:14px; cursor:pointer; z-index:999; }
+    .admin-panel { position:fixed; right:18px; bottom:54px; width:min(290px,calc(100vw - 32px)); padding:14px; border:1px solid rgba(17,25,33,.12); border-radius:12px; background:#fff; box-shadow:0 12px 28px rgba(17,25,33,.16); z-index:998; }
+    .admin-panel[hidden] { display:none; }
+    .admin-panel h3 { margin:0 0 8px; color:var(--navy); font-size:.9rem; text-transform:uppercase; letter-spacing:.04em; }
+    .admin-panel p { margin:0 0 8px; color:var(--muted); font-size:.85rem; }
+    .admin-panel a { display:block; margin-top:8px; padding:9px 10px; border-radius:8px; color:var(--navy); background:rgba(18,58,107,.06); font-size:.88rem; }
+    .admin-panel a:hover { background:rgba(18,58,107,.12); }
+    @media(max-width:980px) { .apps-grid-inner { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+    @media(max-width:560px) { .container { width:calc(100% - 28px); } .apps-grid-inner { grid-template-columns:1fr; gap:18px; } .app-card { grid-template-rows:auto 280px auto; } .artboard { min-height:280px; } .app-meta p { -webkit-line-clamp:unset; } .brand-section { padding-top:30px; } }
+    @media(prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition:none!important; } }
+  </style>
+</head>
+<body>
+  <section class="brand-section"><div class="container"><div class="brand-wrap"><div class="brand">Castelarpp</div></div></div></section>
+  <main class="apps-grid"><div class="container"><div class="apps-grid-inner">
+    <article class="app-card">
+      <div class="app-meta"><h2>FinanzaAI</h2><p>Controle seus gastos, simule seu futuro financeiro e receba insights da IA. Fácil e sem complicações.</p></div>
+      <div class="artboard blue"><div class="phone"><div class="screen"><i></i><i></i><i></i><b></b></div></div></div>
+      <a href="https://play.google.com/store/apps/details?id=com.finanzaai.app" class="app-cta" data-app-name="FinanzaAI" target="_blank" rel="noopener noreferrer" aria-label="Baixar FinanzaAI na Google Play">Baixar app</a>
+    </article>
+    <article class="app-card">
+      <div class="app-meta"><h2>ComprIA</h2><p>Seu assistente de compras inteligente. Planeje, pesquise preços, receba ofertas e compre com disciplina.</p></div>
+      <div class="artboard red"><div class="phone red"><div class="screen"><i></i><i></i><i></i><b></b></div></div></div>
+      <a href="https://play.google.com/store/apps/details?id=com.mercadoai.app" class="app-cta" data-app-name="ComprIA" target="_blank" rel="noopener noreferrer" aria-label="Baixar ComprIA na Google Play">Baixar app</a>
+    </article>
+    <article class="app-card">
+      <div class="app-meta"><h2>CineMapIA</h2><p>Encontre seus filmes e séries, exatamente de acordo com seus gostos. Não perca tempo. Direto ao ponto.</p></div>
+      <div class="artboard gold"><div class="phone gold"><div class="screen"><i></i><i></i><i></i><b></b></div></div></div>
+      <a href="https://play.google.com/store/apps/details?id=com.cinemap.ia" class="app-cta" data-app-name="CineMapIA" target="_blank" rel="noopener noreferrer" aria-label="Baixar CineMapIA na Google Play">Baixar app</a>
+    </article>
+    <article class="app-card">
+      <div class="app-meta"><h2>PetMio</h2><p>Acompanhe seus pets. Tudo o que eles precisam. Fotos, vídeos, exames e consultas. Num só lugar.</p></div>
+      <div class="artboard green"><div class="phone green"><div class="screen"><i></i><i></i><i></i><b></b></div></div></div>
+      <span class="app-cta development" aria-disabled="true">PetMio — Em desenvolvimento</span>
+    </article>
+  </div></div></main>
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KQDV8J3VSH"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){ dataLayer.push(arguments); }
-      gtag('js', new Date());
-      gtag('config', 'G-KQDV8J3VSH');
-    </script>
+  <button class="admin-trigger" id="adminTrigger" type="button" aria-label="Abrir painel de métricas" aria-expanded="false" aria-controls="adminPanel" title="Abrir painel de métricas">•</button>
+  <aside class="admin-panel" id="adminPanel" aria-label="Painel de métricas" hidden>
+    <h3>Métricas</h3>
+    <p>Consulte os eventos e cliques registrados no Google Analytics.</p>
+    <a href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener noreferrer">Abrir Google Analytics</a>
+  </aside>
 
-    <style>
-      :root {
-        --bg: #f4f3f1;
-        --text: #1f2d3a;
-        --muted: #5e6f82;
-        --navy: #1f3a5b;
-        --gold: #b79c77;
-      }
+  <script>
+    // Eventos distintos por botão: aparecem separadamente na lista de eventos do GA4.
+    document.querySelectorAll('a[data-app-name]').forEach(function (link) {
+      link.addEventListener('click', function () {
+        var appName = link.dataset.appName;
+        var eventName = 'app_download_click_' + appName.toLowerCase().replace(/[^a-z0-9]+/g, '_');
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', eventName, {
+            app_name: appName,
+            link_url: link.href,
+            transport_type: 'beacon'
+          });
+        }
+      });
+    });
 
-      * { box-sizing: border-box; }
-      body {
-        margin: 0;
-        font-family: Arial, Helvetica, sans-serif;
-        background: var(--bg);
-        color: var(--text);
-        line-height: 1.5;
+    (function () {
+      var trigger = document.getElementById('adminTrigger');
+      var panel = document.getElementById('adminPanel');
+      function setPanelOpen(open) {
+        panel.hidden = !open;
+        trigger.setAttribute('aria-expanded', String(open));
       }
-      a { color: inherit; text-decoration: none; }
-      .container { width: min(1180px, calc(100% - 48px)); margin: 0 auto; }
-      .brand-section { padding: 38px 0 30px; }
-      .brand-wrap { display: flex; justify-content: center; align-items: center; }
-      .brand {
-        font-size: clamp(2.1rem, 1.8vw + 1.2rem, 4rem);
-        font-weight: 700;
-        letter-spacing: -0.04em;
-        color: var(--gold);
-        padding: 0 8px 10px;
-        border-bottom: 3px solid rgba(26, 40, 52, 0.7);
-        line-height: 1.1;
-      }
-      .apps-grid { padding: 12px 0 48px; }
-      .apps-grid-inner {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 22px;
-        align-items: stretch;
-      }
-      .app-card {
-        min-width: 0;
-        display: grid;
-        grid-template-rows: 164px 300px 82px;
-        overflow: hidden;
-        background: #fff;
-        border: 1px solid rgba(31, 58, 91, 0.1);
-        border-radius: 16px;
-        box-shadow: 0 5px 18px rgba(31, 45, 58, 0.08);
-        transition: transform 180ms ease, box-shadow 180ms ease;
-      }
-      .app-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 10px 24px rgba(31, 45, 58, 0.13);
-      }
-      .app-meta { min-height: 0; padding: 20px 18px 14px; }
-      .app-meta h2 {
-        margin: 0 0 9px;
-        font-size: clamp(1.05rem, 0.8vw + 0.8rem, 1.4rem);
-        line-height: 1.25;
-        font-weight: 700;
-        letter-spacing: -0.03em;
-        color: var(--navy);
-      }
-      .app-meta p {
-        display: -webkit-box;
-        margin: 0;
-        overflow: hidden;
-        color: var(--muted);
-        font-size: 0.92rem;
-        line-height: 1.5;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 4;
-        line-clamp: 4;
-      }
-      .artboard { position: relative; min-height: 0; overflow: hidden; background: #1d7ed8; }
-      .artboard.blue { background: linear-gradient(160deg, #178ee0 0%, #0c65b8 100%); }
-      .artboard.red { background: linear-gradient(160deg, #e44740 0%, #ad1d28 100%); }
-      .artboard.gold { background: linear-gradient(160deg, #d6bd73 0%, #a8790b 100%); }
-      .artboard.green { background: linear-gradient(160deg, #70b47b 0%, #347e58 100%); }
-      .figure { position: absolute; left: 50%; bottom: -10px; transform: translateX(-50%); width: 180px; height: 260px; }
-      .head {
-        position: absolute; left: 50%; top: 16px; width: 94px; height: 104px;
-        transform: translateX(-50%); background: #0f1115;
-        border-radius: 50% 50% 46% 46% / 42% 42% 58% 58%;
-        box-shadow: inset -8px -10px 0 rgba(255,255,255,0.03);
-      }
-      .head::before {
-        content: ""; position: absolute; width: 20px; height: 20px; border-radius: 50%;
-        background: rgba(255,255,255,0.12); top: 20px; left: 18px;
-      }
-      .head::after {
-        content: ""; position: absolute; width: 18px; height: 18px; border-radius: 50%;
-        background: rgba(255,255,255,0.1); bottom: 24px; right: 18px;
-      }
-      .torso {
-        position: absolute; left: 50%; top: 106px; transform: translateX(-50%);
-        width: 100px; height: 98px; background: #0f1115; border-radius: 18px 18px 26px 26px;
-      }
-      .arm { position: absolute; width: 20px; height: 78px; background: #0e0f12; border-radius: 12px; top: 120px; }
-      .arm.left { left: 28px; transform: rotate(12deg); }
-      .arm.right { right: 28px; transform: rotate(-12deg); }
-      .hand { position: absolute; width: 26px; height: 26px; background: #0f1115; border-radius: 50%; bottom: 52px; }
-      .arm.left .hand { left: -3px; }
-      .arm.right .hand { right: -3px; }
-      .leg { position: absolute; width: 18px; height: 74px; background: #0f1115; border-radius: 12px; bottom: 0; }
-      .leg.left { left: 58px; }
-      .leg.right { right: 58px; }
-      .phone {
-        position: absolute; width: 110px; height: 150px; left: 50%; top: 115px;
-        transform: translateX(-50%) rotate(4deg);
-        background: linear-gradient(180deg, #f3f3f3 0%, #dfe7ee 100%);
-        border-radius: 18px; border: 5px solid rgba(16, 18, 21, 0.92);
-        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
-      }
-      .phone::before {
-        content: ""; position: absolute; width: 54px; height: 10px; left: 50%; top: 12px;
-        transform: translateX(-50%); border-radius: 999px; background: rgba(35, 50, 62, 0.12);
-      }
-      .screen {
-        position: absolute; inset: 32px 10px 10px; border-radius: 10px;
-        background: linear-gradient(180deg, #f3d8e4 0%, #f5f5f5 100%); overflow: hidden;
-      }
-      .screen .bar { position: absolute; left: 12px; right: 12px; height: 14px; border-radius: 999px; background: #ecb5d2; }
-      .screen .bar:nth-child(1) { top: 18px; width: 52%; }
-      .screen .bar:nth-child(2) { top: 42px; width: 74%; }
-      .screen .bar:nth-child(3) { top: 66px; width: 58%; }
-      .chart { position: absolute; left: 16px; bottom: 14px; width: 62px; height: 52px; }
-      .chart span {
-        position: absolute; bottom: 0; width: 12px; border-radius: 2px 2px 0 0;
-        background: linear-gradient(180deg, #67d369 0%, #4bbb54 100%);
-      }
-      .chart span:nth-child(1) { left: 0; height: 20%; }
-      .chart span:nth-child(2) { left: 16px; height: 40%; }
-      .chart span:nth-child(3) { left: 32px; height: 68%; }
-      .chart span:nth-child(4) { left: 48px; height: 100%; }
-      .phone.red .screen { background: linear-gradient(180deg, #fef0f5 0%, #f5f5f5 100%); }
-      .phone.gold .screen { background: linear-gradient(180deg, #f7f2d6 0%, #f5f5f5 100%); }
-      .phone.green .screen { background: linear-gradient(180deg, #e4f5dc 0%, #f5f5f5 100%); }
-      .phone.red .screen .bar { background: #de5a5a; }
-      .phone.gold .screen .bar { background: #d8ba5d; }
-      .phone.green .screen .bar { background: #74a65e; }
-      .app-cta {
-        height: 52px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 14px 16px 16px;
-        padding: 8px 10px;
-        border-radius: 9px;
-        background: #123a6b;
-        color: #fff;
-        text-align: center;
-        font-weight: 700;
-        font-size: 0.86rem;
-        line-height: 1.3;
-        transition: background 160ms ease;
-      }
-      a.app-cta:hover { background: #1f4e82; }
-      a.app-cta:focus-visible { outline: 3px solid #d6bd73; outline-offset: 3px; }
-      .app-cta.development { background: #697586; }
-      .admin-trigger {
-        position: fixed;
-        right: 18px;
-        bottom: 18px;
-        width: 18px;
-        height: 18px;
-        display: grid;
-        place-items: center;
-        border-radius: 50%;
-        background: rgba(17, 25, 33, 0.08);
-        color: rgba(17, 25, 33, 0.7);
-        font-size: 10px;
-        font-weight: 700;
-        cursor: pointer;
-        user-select: none;
-        z-index: 999;
-      }
-      .admin-panel {
-        position: fixed;
-        right: 18px;
-        bottom: 46px;
-        width: min(290px, calc(100vw - 32px));
-        background: rgba(255, 255, 255, 0.96);
-        border: 1px solid rgba(17, 25, 33, 0.1);
-        box-shadow: 0 12px 28px rgba(17, 25, 33, 0.12);
-        border-radius: 12px;
-        padding: 12px 12px 10px;
-        opacity: 0;
-        transform: translateY(8px);
-        pointer-events: none;
-        transition: opacity 180ms ease, transform 180ms ease;
-        z-index: 998;
-      }
-      .admin-panel.visible {
-        opacity: 1;
-        transform: translateY(0);
-        pointer-events: auto;
-      }
-      .admin-panel h3 {
-        margin: 0 0 10px;
-        font-size: 0.82rem;
-        color: var(--navy);
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-      }
-      .admin-panel a {
-        display: block;
-        margin-top: 8px;
-        padding: 8px 10px;
-        border-radius: 8px;
-        font-size: 0.85rem;
-        color: var(--navy);
-        background: rgba(18, 58, 107, 0.04);
-      }
-      .admin-panel a:hover { background: rgba(18, 58, 107, 0.08); }
-      @media (max-width: 980px) {
-        .apps-grid-inner { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      }
-      @media (max-width: 560px) {
-        .container { width: min(100% - 28px, 1180px); }
-        .apps-grid-inner { grid-template-columns: 1fr; gap: 18px; }
-        .app-card { grid-template-rows: auto 280px auto; }
-        .app-meta { min-height: 0; padding: 18px 18px 16px; }
-        .artboard { min-height: 280px; }
-        .app-meta p { -webkit-line-clamp: unset; line-clamp: unset; }
-        .brand-section { padding-top: 30px; }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="site-shell">
-      <section class="brand-section">
-        <div class="container"><div class="brand-wrap"><div class="brand">Castelarpp</div></div></div>
-      </section>
-
-      <main class="apps-grid">
-        <div class="container">
-          <div class="apps-grid-inner">
-            <article class="app-card">
-              <div class="app-meta">
-                <h2>FinanzaAI</h2>
-                <p>Controle seus gastos, simule seu futuro financeiro e receba insights da IA. Fácil e sem complicações.</p>
-              </div>
-              <div class="artboard blue"><div class="figure"><div class="head"></div><div class="torso"></div><div class="arm left"><span class="hand"></span></div><div class="arm right"><span class="hand"></span></div><div class="leg left"></div><div class="leg right"></div><div class="phone">
-                <div class="screen"><span class="bar"></span><span class="bar"></span><span class="bar"></span><div class="chart"><span></span><span></span><span></span><span></span></div></div>
-              </div></div></div>
-              <a href="https://play.google.com/store/apps/details?id=com.finanzaai.app" class="app-cta" target="_blank" rel="noopener noreferrer" aria-label="Baixar FinanzaAI na Google Play" onclick="gtag('event', 'app_click', { app_name: 'FinanzaAI' });">Baixar app</a>
-            </article>
-            <article class="app-card">
-              <div class="app-meta">
-                <h2>ComprIA</h2>
-                <p>Seu assistente de compras inteligente. Planeje, pesquise preços, receba ofertas e compre com disciplina.</p>
-              </div>
-              <div class="artboard red"><div class="figure"><div class="head"></div><div class="torso"></div><div class="arm left"><span class="hand"></span></div><div class="arm right"><span class="hand"></span></div><div class="leg left"></div><div class="leg right"></div><div class="phone red">
-                <div class="screen"><span class="bar"></span><span class="bar"></span><span class="bar"></span><div class="chart"><span></span><span></span><span></span><span></span></div></div>
-              </div></div></div>
-              <a href="https://play.google.com/store/apps/details?id=com.mercadoai.app" class="app-cta" target="_blank" rel="noopener noreferrer" aria-label="Baixar ComprIA na Google Play" onclick="gtag('event', 'app_click', { app_name: 'ComprIA' });">Baixar app</a>
-            </article>
-            <article class="app-card">
-              <div class="app-meta">
-                <h2>CineMapIA</h2>
-                <p>Encontre seus filmes e séries, exatamente de acordo com seus gostos. Não perca tempo. Direto ao ponto.</p>
-              </div>
-              <div class="artboard gold"><div class="figure"><div class="head"></div><div class="torso"></div><div class="arm left"><span class="hand"></span></div><div class="arm right"><span class="hand"></span></div><div class="leg left"></div><div class="leg right"></div><div class="phone gold">
-                <div class="screen"><span class="bar"></span><span class="bar"></span><span class="bar"></span><div class="chart"><span></span><span></span><span></span><span></span></div></div>
-              </div></div></div>
-              <a href="https://play.google.com/store/apps/details?id=com.cinemap.ia" class="app-cta" target="_blank" rel="noopener noreferrer" aria-label="Baixar CineMapIA na Google Play" onclick="gtag('event', 'app_click', { app_name: 'CineMapIA' });">Baixar app</a>
-            </article>
-            <article class="app-card">
-              <div class="app-meta">
-                <h2>PetMio</h2>
-                <p>Acompanhe seus pets. Tudo o que eles precisam. Fotos, vídeos, exames e consultas. Num só lugar.</p>
-              </div>
-              <div class="artboard green"><div class="figure"><div class="head"></div><div class="torso"></div><div class="arm left"><span class="hand"></span></div><div class="arm right"><span class="hand"></span></div><div class="leg left"></div><div class="leg right"></div><div class="phone green">
-                <div class="screen"><span class="bar"></span><span class="bar"></span><span class="bar"></span><div class="chart"><span></span><span></span><span></span><span></span></div></div>
-              </div></div></div>
-              <span class="app-cta development" aria-disabled="true">PetMio — Em desenvolvimento</span>
-            </article>
-          </div>
-        </div>
-      </main>
-    </div>
-
-    <div class="admin-trigger" id="adminTrigger" aria-label="Área discreta">•</div>
-    <div class="admin-panel" id="adminPanel" aria-live="polite">
-      <h3>Métricas</h3>
-      <a href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener noreferrer">Abrir Google Analytics</a>
-      <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">Resumo do site</a>
-    </div>
-
-    <script>
-      (function () {
-        const trigger = document.getElementById('adminTrigger');
-        const panel = document.getElementById('adminPanel');
-        let taps = 0;
-        let lastTap = 0;
-
-        trigger.addEventListener('click', function () {
-          const now = Date.now();
-          if (now - lastTap <= 500) {
-            taps += 1;
-          } else {
-            taps = 1;
-          }
-
-          lastTap = now;
-
-          if (taps >= 7) {
-            panel.classList.add('visible');
-            taps = 0;
-          }
-        });
-
-        document.addEventListener('click', function (event) {
-          if (!panel.contains(event.target) && !trigger.contains(event.target)) {
-            panel.classList.remove('visible');
-          }
-        });
-      })();
-    </script>
-  </body>
+      trigger.addEventListener('click', function () {
+        setPanelOpen(panel.hidden);
+      });
+      document.addEventListener('click', function (event) {
+        if (!panel.hidden && !panel.contains(event.target) && !trigger.contains(event.target)) setPanelOpen(false);
+      });
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') setPanelOpen(false);
+      });
+    })();
+  </script>
+</body>
 </html>
