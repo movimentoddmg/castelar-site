@@ -33,7 +33,7 @@
     .red { background:linear-gradient(160deg,#e44740,#ad1d28); }
     .gold { background:linear-gradient(160deg,#d6bd73,#a8790b); }
     .green { background:linear-gradient(160deg,#70b47b,#347e58); }
-    .phone { position:absolute; left:50%; top:50%; width:150px; height:220px; transform:translate(-50%,-46%) rotate(4deg); border:8px solid #11151a; border-radius:24px; background:linear-gradient(#fff,#e6ebef); box-shadow:0 12px 24px #0003; }
+    .phone { position:absolute; left:50%; top:50%; width:150px; height:220px; transform:translate(-50%,-46%) rotate(4deg); border:8px solid #11151a; border-radius:24px; background:linear-gradient(180deg,#2a3037,#161a1f); box-shadow:0 20px 30px rgba(0,0,0,.22); }
     .phone:before { content:""; position:absolute; top:8px; left:50%; width:48px; height:7px; transform:translateX(-50%); border-radius:9px; background:#aeb8c1; }
     .screen { position:absolute; inset:30px 12px 12px; overflow:hidden; border-radius:10px; background:#f3d8e4; }
     .screen i { display:block; height:13px; margin:17px 12px; border-radius:9px; background:#ecb5d2; }
@@ -46,19 +46,13 @@
     .phone.gold .screen i { background:#d8ba5d; }
     .phone.green .screen { background:#e4f5dc; }
     .phone.green .screen i { background:#74a65e; }
-    .app-cta { height:52px; display:flex; align-items:center; justify-content:center; margin:14px 16px 16px; padding:8px 10px; border-radius:9px; background:#123a6b; color:#fff; text-align:center; font-weight:700; font-size:.86rem; }
+    .app-cta { height:52px; display:flex; align-items:center; justify-content:center; margin:14px 16px 16px; padding:8px 10px; border-radius:9px; background:#123a6b; color:#fff; text-align:center; font-weight:700; }
     a.app-cta:hover { background:#1f4e82; }
     a.app-cta:focus-visible,.admin-trigger:focus-visible { outline:3px solid #d6bd73; outline-offset:3px; }
     .app-cta.development { background:#697586; }
-    .admin-trigger { position:fixed; right:18px; bottom:18px; width:28px; height:28px; display:grid; place-items:center; border:0; border-radius:50%; background:rgba(17,25,33,.12); color:#263342; font-size:14px; cursor:pointer; z-index:999; }
-    .admin-panel { position:fixed; right:18px; bottom:54px; width:min(290px,calc(100vw - 32px)); padding:14px; border:1px solid rgba(17,25,33,.12); border-radius:12px; background:#fff; box-shadow:0 12px 28px rgba(17,25,33,.16); z-index:998; }
-    .admin-panel[hidden] { display:none; }
-    .admin-panel h3 { margin:0 0 8px; color:var(--navy); font-size:.9rem; text-transform:uppercase; letter-spacing:.04em; }
-    .admin-panel p { margin:0 0 8px; color:var(--muted); font-size:.85rem; }
-    .admin-panel a { display:block; margin-top:8px; padding:9px 10px; border-radius:8px; color:var(--navy); background:rgba(18,58,107,.06); font-size:.88rem; }
-    .admin-panel a:hover { background:rgba(18,58,107,.12); }
+    .admin-trigger { position:fixed; right:18px; bottom:18px; width:28px; height:28px; display:grid; place-items:center; border:0; border-radius:50%; background:rgba(17,25,33,.12); color:#263342; cursor:pointer; }
     @media(max-width:980px) { .apps-grid-inner { grid-template-columns:repeat(2,minmax(0,1fr)); } }
-    @media(max-width:560px) { .container { width:calc(100% - 28px); } .apps-grid-inner { grid-template-columns:1fr; gap:18px; } .app-card { grid-template-rows:auto 280px auto; } .artboard { min-height:280px; } .app-meta p { -webkit-line-clamp:unset; } .brand-section { padding-top:30px; } }
+    @media(max-width:560px) { .container { width:calc(100% - 28px); } .apps-grid-inner { grid-template-columns:1fr; gap:18px; } .app-card { grid-template-rows:auto 280px auto; } .artboard { min-height:280px; } }
     @media(prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition:none!important; } }
   </style>
 </head>
@@ -87,15 +81,9 @@
     </article>
   </div></div></main>
 
-  <button class="admin-trigger" id="adminTrigger" type="button" aria-label="Abrir painel de métricas" aria-expanded="false" aria-controls="adminPanel" title="Abrir painel de métricas">•</button>
-  <aside class="admin-panel" id="adminPanel" aria-label="Painel de métricas" hidden>
-    <h3>Métricas</h3>
-    <p>Consulte os eventos e cliques registrados no Google Analytics.</p>
-    <a href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener noreferrer">Abrir Google Analytics</a>
-  </aside>
+  <button class="admin-trigger" id="adminTrigger" type="button" aria-label="Ação secreta de métricas" title="">•</button>
 
   <script>
-    // Use o evento app_click esperado pela exploração e envie app_name como parâmetro.
     document.querySelectorAll('a[data-app-name]').forEach(function (link) {
       link.addEventListener('click', function () {
         if (typeof window.gtag !== 'function') return;
@@ -109,19 +97,24 @@
 
     (function () {
       var trigger = document.getElementById('adminTrigger');
-      var panel = document.getElementById('adminPanel');
-      function setPanelOpen(open) {
-        panel.hidden = !open;
-        trigger.setAttribute('aria-expanded', String(open));
-      }
+      var clickCount = 0;
+      var lastClickTime = 0;
+      var clickWindowMs = 3000;
+
       trigger.addEventListener('click', function () {
-        setPanelOpen(panel.hidden);
-      });
-      document.addEventListener('click', function (event) {
-        if (!panel.hidden && !panel.contains(event.target) && !trigger.contains(event.target)) setPanelOpen(false);
-      });
-      document.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape') setPanelOpen(false);
+        var now = Date.now();
+
+        if (now - lastClickTime > clickWindowMs) {
+          clickCount = 0;
+        }
+
+        clickCount += 1;
+        lastClickTime = now;
+
+        if (clickCount === 7) {
+          clickCount = 0;
+          window.open('https://analytics.google.com/analytics/web/', '_blank', 'noopener,noreferrer');
+        }
       });
     })();
   </script>
